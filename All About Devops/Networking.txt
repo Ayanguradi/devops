@@ -1,0 +1,23 @@
+What is networking?
+ Its a connection of computers
+
+Switch:-Its a device which connects multiple computers and share data. like Router includes switch
+Ip Address:-It is provided by ISP to establish communication over internet.
+ 	    It is unique in private network and not unique in public network.
+	    
+Router:-Router uses public IP Address and generates Unique IP Address for the devices connected with it.
+	The devices connected with the router uses public ip address of Router to use internet.
+
+Ports:-It allows multiple applications and services to share a single network connection
+       and direct data traffic to the correct destination.
+	-It is designed for when we use multiple services at a time and there transfer of data takes 
+	 place it cant be identified which data should be given to which service.
+	-Every service has some unique port by the port only the service is identified.like MySql(3306) Http(80)
+
+Types of Networking?
+ PAN:Personal Area Network like Wi-Fi, Bluetooth.
+ LAN:Broad band, computers connected in a building over wired cable or Router.
+ WAN:Wide Area Network like internet.
+
+ping:-The "ping" command sends a small data packet to a destination and measures the time for a response.
+	It reveals the network connectivity between your machine and an Ip Address

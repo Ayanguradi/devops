@@ -1,0 +1,106 @@
+continuous integration:--
+	programmer team will writes the code.
+	Then it is pushed to GitHub(version control repository)
+	then, it will be moved to build server there it will built,tested,evaluated.if error then developer gets 		notification.
+	then, stored in a software repository whee an artifact i generated (archiva,sonatype nexus,grunt)
+	build tools: based on programming language(maven,gradle,visual build)
+	CI tools:Jenkins,Bamboo CI
+
+	It is a process of automating built,testing when the programmers commits code each time.
+	By doing this we get bugs earlier instead of writing the whole code and testing it.
+
+
+continuous delivery:--
+	It is continuous after of CI when the code is build and tested then a artifact file is saved.
+	It is responsible for deploying,server provisioning,dependiencies,conf changes,network.It is automated.
+	tools:-Jenkins for CI/CD automation,Terraform for cloud automation,Ansible for System automation.
+	
+software testing:--
+	functional,load,performance,DB,security and other testings
+
+
+The Tools and its installation:----
+	Choclatey: Install it from chrome. Its a software which makes us able to install all other softwares in 			windows using power shell.
+
+BIOS:-----
+	BIOS (Basic Input/Output System) settings are configuration parameters that determine how hardware 	interacts with the operating system during the boot process and system operation. 
+
+ISO file:--
+	An ISO file represents a virtual disc, containing all the files, folders, and the structure of the 	original physical disc. 
+	An ISO file, also known as an ISO image, is a single file that contains an exact copy of the data on an 	optical disc, like a CD, DVD, or Blu-ray.
+
+vdi file:---
+	A centos vm.vdi file in the context of CentOS is a VirtualBox disk image file that represents the virtual 	hard disk for a CentOS virtual machine. It stores the data and files of the CentOS operating system, 	similar to how a physical hard drive stores data for a regular computer.
+
+virtual machine setup:-----
+	create a virtual by clicking on new button
+	select the specifications memory,ram,cpu
+
+Install OS on virtual machine:----
+	cent os type-linux, subtype:redhat
+	download iso file and goto storage in settings and place it in controller->empty disc.
+
+	network adapter settings
+	 goto network->adapter2
+	 attached to->bridged adapter
+	 name->go to control panel->Network&Internet->Network&SharingCenter->ChangeAdapterSetting->Wifi 
+	in cmd type 'ip addr show' and access ip address by using it you can login on git					'ssh username@your_server_ip'.
+
+Its time to use Vagrant for automation setup of os in virtual box:---
+	goto gitbash and 'mkdir /D/vagrant-vms'
+	In vagrant-vms folder create sub-folder ubuntuos and centos
+	goto vagrant cloud-'https://portal.cloud.hashicorp.com/vagrant/discover?query=centos%209'
+		then click on eurolinux-vagrant/centos-stream-9
+		then copy vagrant init eurolinux-vagrant/centos-stream-9 --box-version 9.0.48
+		then set path to F/vagrant-vms/centos and paste it
+		after installation then cmd 'vagrant up' then check it cmd 'vagrant box list'
+	vagrant init -to initialize current directory with vagrant env and create vagrant file
+	vagrant up -to create,configure and run vm
+	vagrant ssh - for login into vm
+	whoami -to see which logged user
+	sudo -i :to switch from Vagrant to root user
+	exit :for exiting from vm or out
+	vagrant halt :to shutdown vm
+	vagrant halt <id>:when multiple vm's are running wants to shutdown particular vm by its id
+	vagrant status :to check machine is off or on
+	vagrant global-status :to check status of all the vm's.
+	vagrant reload :to reboot vm if there is changes in configuration
+	vagrant destroy :to delete vm
+	history :for seeing cmd history
+
+vimtext editor:-----
+	yyp -for copy paste
+	ddp -for cut paste
+	dd  -for delete
+	4dd -for deleting multiple lines
+	there are still more cmd refer from documents
+
+sudo -i access for other users:----------
+	visudo -by this cmd u will go to text editor
+	   then goto line 101 and copy same as line 101 only change username
+	   if u want to add user or passwd then before use sudo useradd user_name
+
+	if u make any mistake in sudoers file then sudo cmd will not work
+	so,instead of modifying sudoer goto cd /etc/sudoers.d/ 
+	then, cp vagrant devops
+	then, vim devops and change vagrant to devops
+	
+
+vagrant files:-
+	lets understand how the vagrant works and what is inside vagrant file
+	vagrant file contains some set of instructions that defines the configuration of VM.
+	and we can customize it like increase the cpu and ram.
+	if we do any changes in Vagrantfile then 'vagrant reload' cmd should be done to update changes.
+	
+	we can create a common folder that can be accessed in both host-os and guest-os 
+		config.vm.synced_folder "./scripts", "/scripts" 
+		  ./refers to the project folder of host-os and scripts is a folder in that.
+		  /scripts is folder in guest-os
+		if i create a file in vm it will be reflected in windows and vice-versa.
+	
+	config.vm.provision "shell"  :learn tis in vs code using copilot
+		it will run shell cmds only first time when vm is created
+		if u want to do next time then, run vagrant provision
+
+
+	
