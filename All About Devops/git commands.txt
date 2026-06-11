@@ -1,0 +1,43 @@
+git init //creating a git file in working repository to track the changed which had did it that folder
+git add file_name //command to add file in staging area
+git add . //if there are more than 1 file to be added in staging area
+git commit -m "Write comment here"//the changes will be updated in local repository
+git status
+ls   //list of files in working directory
+ls -a //list of files in working directory with hidden files
+creating gitignore file
+
+git restore --staged <individual_file> //removing file from staging area
+git restore --staged .
+git restore "filename" //discarding the changes made in file at last staging area before this command you should unstage the file
+
+git reset "File"//to unstage the file 
+git reset --soft HEAD^ //to uncommit the previous commit but the there will not any change in staging area and files.//this will work even if you have pushed the code
+git reset --hard HEAD^ //this will uncommit,unstage and change the content of the file to previous content.//this will work even if you have pushed the code
+
+ -----to uncommit upto a specific commit-----
+git reset <commit hash number of previous commit if you want to uncommit 6commits so take 7commit number> //this will only uncommit
+git reset --hard <CommitHashNumber of previous commit if you want to uncommit 6commits so take 7commit number> //uncommit,unstage,UndoData
+git reset HEAD~5 //Rewinds back 5 commits but keeps changes in the working directory
+git reset --hard HEAD~3  //Rewinds back 3 commits and deletes changes
+
+
+-------branching and merging---------------------
+git branch //for seeing list of branches
+git checkout <branch name> // for switching one branch to another
+git checkout -- <file>//discarding the changes made in file at last commit
+git checkout -b <branch name>//creating a new branch
+doubt// git checkout <CommitHashNo> //to uncommit the changes--this will uncommit unstage and revert all the changes
+git merge <branch> //goto the branch on which you want to merge by git checkout and then type git merge command
+if there is conflict while merging then manually change the text or code where there is conflict
+To exit a git merge asking for commit message?
+=>press esc to exit insert mode, then type :q! and hit enter to save and exit.
+
+------creating remote repository-----
+go to GitHub
+click on create new repository and give a name for it.
+follow the instructions given below in GitHub there are some commands after that you should push the code.
+git push
+
+--------cloning git repository------
+git clone https://github.com/inolen/quakejs.git

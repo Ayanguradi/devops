@@ -1,0 +1,91 @@
+---------------------------------to get sql query behind the orm methods--------------------
+from django.db import connection, reset_queries 
+print(connection.queries)
+print(connection.queries[5]) 
+
+---------------------------------sql raw queries---------------------
+>>> from django.db import connection
+>>> cursor = connection.cursor()
+>>> cursor.execute('''SELECT count(*) FROM people_person''')
+>>>cursor.fetchall()
+
+
+---------------------------slicing,value_list,creating tuple,------------------------
+python manage.py shell 	//here you can access Django files and test whether a function is properly working or not
+from recipies.models import *	//import the file {app_name.files_name} in shell
+RecipieBlog.objects.create(title=title, description=description,img=img)  // create a tuple of RecipieBlog model
+RecipieBlog.objects.all()   //by this query you will get all the tuples of a model{model_name.objects.all()}
+recipies[0:2] //returns zerro and first tuple
+RecipieBlog.values('title')	//it will return all the values of a attribute {model_name.values('attibute_name')}
+td.values_list('s_name','s_age')  //returns only name and age in tuple but not keys
+RecipieBlog.objects.all()[1].title  //it will return a value of tuple1 attribute
+
+
+------filter will return multiple objects and get() returns single object------
+------PK__attribute,exclude,in,vars--------------------------
+
+std.values()[0] 	//it returns index 0 whole tuple values
+std.values('s_name','s_age')[0] //it returns index 0 name and age
+std.values()  		//it returns all the values of all tuples
+vars(std1)   	//if there is only one object and want to return its all values
+std[0].department.department   //it will return department attribute value of department table.
+res[3].user.last_name //it will return last name of user who created the tuple id=15 --first goto user model then its attribute last_nme
+res.values('title','user__username') //double underscore should be used to access object of model in values
+std.filter(department__department='MBA')  //we are printing the students of MBA department
+std.filter(department__department__in =['MCA','MBA'])   //it will return all students who are in MBA and MCA department
+std.exclude(department__department__in=['MBA','MCA'])   //it will return students who are not in MBA and MCA department
+recipies.get(id=3).title     //it will return title of id 3
+RecipieBlog.objects.filter(id=3)   //it returns tuple whose id is 3 a unique id is created for each tuple.
+std.filter(s_age=27)[1].s_mail	  // 
+RecipieBlog.filter(id=5).delete()  //it will delete the object(tuple) whose id=5
+AllRecipies.filter(recipie_view_count=21)  //it will return the tuple whose recipie_view_count is 21
+
+
+------specialMethods-------icontains,gte,lte,startswith,endswith,orderby,reverse,exists,count---------------------
+
+recipies.filter(title__icontains='dip')     //it return tuples whose title attribute contains 'dip' string
+recipies.filter(recipie_view_count__gte=50).values('recipie_view_count')  //return tuple whose recipie_view_count is >=50
+recipies.filter(recipie_view_count__lte=50).values('recipie_view_count')  //return tuple whose recipie_view_count is <=50
+std.filter(s_mail__endswith='.org')
+std.filter(s_age=30,s_name__startswith='a').values('s_name','s_age') //it return a tuple whose age=30 and name startswith 'a'
+
+recipies.order_by('recipie_view_count').values()  //arrange in ascending order
+recipies.order_by('-recipie_view_count').values()    //arrange in descending order '-' should be before attribute
+
+std.reverse()	//reverse order of list
+std.filter(s_age=30).count()	//returns number of students whose age is 30
+AllRecipies.flter(recipie_view_count=21).exists()   //it will return true if 21 value exists in recipie_view_count
+
+
+--------------AND OR NOT-----------------------
+from django.db.models import Q
+
+std.filter(q(department=1) | q( s_age=22)).values('department','s_age')   //OR operator
+std.filter(Q(department=1) & Q( s_age=22)).values('department','s_age')   //AND operator
+std.filter(~Q(s_name__startswith='a'))		// ~Not operator
+std.filter((Q(department=1) | Q( s_age=22)) & Q(s_name__startswith='a')).values_list('s_name','department','s_age') 	//combined logical operators
+
+
+--------Aggregate Functions ---------------Avg,count,Max,Min,Sum----------
+Its used to apply some functions on single columns
+
+  from django.db.models import *
+std.aggregate(Avg('s_age'))
+std.aggregate(Max('s_age'))
+std.aggregate(Min('s_age'))
+std.aggregate(Sum('s_age'))
+
+
+--------------Annotate Function
+Its used to apply some functions on multiple columns
+
+    from django.db.models import *
+std.annotate(Count('s_age'))  	//it will return all counted objects instead of number of objects
+std.annotate(Count('s_age')).values('s_name','s_age') 	//it returns all counted objects name and age
+std.values('s_age').annotate(Count('s_age'))	//it returns all age and how many students belongs to that age --it will visit each object s_age and get its value and see(count) how many 						that values are there in s_age columns
+std.values('department','s_age').annotate(Count('department'),Count('s_age')) 	//it returns how many particular age students are there in each department
+
+
+
+
+
